@@ -21,7 +21,7 @@ for t in range(T):
           for tx in range(1, K - d + 1):
                ty = tx + d
                dp[tx][ty] = math.inf
-
+               print(tx, ty)
                for mid in range(tx, ty):
                     dp[tx][ty] = min(dp[tx][ty], dp[tx][mid] + dp[mid + 1][ty] + sum_arr[ty] - sum_arr[tx - 1])
 
@@ -29,9 +29,16 @@ for t in range(T):
      print("Test Case #%d" % (t + 1))
      print("sum_arr", sum_arr)
      print("DP Table")
-     for x in range(K + 1):
-          for y in range(K + 1):
-               print("%3d" % dp[x][y], end=' ')
+     for x in range(-1, K + 1):
+          for y in range(-1, K + 1):
+               if x == -1 and y == -1:
+                    print('   ', end=' ')
+               elif x == -1:
+                    print("%3d" % y, end=' ')
+               elif y == -1:
+                    print("%3d" % x, end=' ')
+               else:
+                    print("%3d" % dp[x][y], end=' ')
           print()
 
      print(dp[1][K])
