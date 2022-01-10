@@ -15,7 +15,7 @@ public class P_1806 {
         int R = 1, sum = 0, answer = 0;
         for (int L = 1; L <= N; L++) {
 
-            while (sum < S && R < N) {
+            while (sum < S && R <= N) {
                 sum += arr[R];
                 R += 1;
             }
