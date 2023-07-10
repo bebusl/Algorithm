@@ -1,0 +1,55 @@
+# Online Python compiler (interpreter) to run Python online.
+# Write Python 3 code in this online editor and run it.
+from collections import defaultdict,deque
+
+
+class Path:
+    def __init__(self):
+        self.cache = defaultdict(list)
+        self.start = -1
+        
+    def setCache(self):
+        N,M,start = map(int,input().split())
+        self.start = start
+        for i in range(M):
+            a,b = map(int, input().split())
+            self.cache[a].append(b)
+            self.cache[b].append(a)
+            
+        for key in self.cache.keys():
+            self.cache[key].sort()
+        
+
+    
+    def getDFS(self):
+        start_p = self.start
+        stack = [start_p]
+        path = []
+        while(len(stack)!=0):
+            cur = stack.pop()
+            if(not cur in path):
+                path.append(cur)
+            tmp = [x for x in self.cache[cur] if not x in path]
+            stack.extend(tmp[::-1])
+        return ' '.join(map(str,path))
+        
+    def getBFS(self):
+        start_p = self.start
+        queue = deque()
+        queue.append(start_p)
+        path = []
+
+        while(len(queue) !=0):
+            cur = queue.popleft()
+            if(not cur in path):
+                path.append(cur)
+            tmp = [x for x in self.cache[cur] if not x in path]
+            queue.extend(tmp)
+        return ' '.join(map(str,path))
+        
+
+getPath = Path()
+
+getPath.setCache()
+print(getPath.getDFS())    
+print(getPath.getBFS())
